@@ -55,38 +55,38 @@ class SmartFilter
     Array.new
   end
 
-  # Endpoint: /xss/detect
-  def detect(input, whitelist)
+  # Endpoint: /rule/verify
+  def verify_rule(rule_key)
     begin
-      return detect!(input, whitelist)
+      return verify_rule!(rule_key)
     rescue => e
       return nil
     end
   end
 
-  def detect!(input, whitelist)
-    options = {:api_key => @key, :input => input, :whitelist_id => whitelist}
-    response = HTTParty.post("#{@base}/xss/detect", :query => options)
-    return JSON.parse(response.body) if response.code == 200
+  def verify_rule!(rule_key)
+    options = {:api_key => @key, :rule_key => rule_key}
+    response = HTTParty.get("#{@base}/rule/verify", :query => options)
+    return true if response.code == 200
     raise SmartFilterBadInputParameter.new if response.code == 400
     raise SmartFilterBadAPIKey.new if response.code == 403
-    raise SmartFilterRequestTooLarge.new if response.code == 413
     raise SmartFilterInternalError.new if response.code == 500
-    raise SmartFilterAccountQuotaExceeded.new if response.code == 507
-    Array.new
+    false
   end
 
   # Endpoint: /xss/filter
-  def filter(input, whitelist)
+  def filter(input, rule_key)
     begin
-      return filter!(input, whitelist)
+      return filter!(input, rule_key)
     rescue => e
       return nil
     end
   end
 
-  def filter!(input, whitelist)
-    options = {:api_key => @key, :input => input, :whitelist_id => whitelist}
+  def filter!(input, rule_key)
+    puts @key
+    puts rule_key
+    options = {:api_key => @key, :input => input, :rule_key => rule_key}
     response = HTTParty.post("#{@base}/xss/filter", :query => options)
     return JSON.parse(response.body) if response.code == 200
     raise SmartFilterBadInputParameter.new if response.code == 400

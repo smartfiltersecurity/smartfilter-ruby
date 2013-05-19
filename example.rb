@@ -2,21 +2,21 @@ require 'rubygems'
 require 'awesome_print'
 require 'smartfilter'
 
-key = 'key goes here'
-whitelist = 'whitelist goes here'
-input = 'the <script>alert("quick brown fox");</script> jumps over the lazy dog'
+api_key = 'api key goes here'
+rule_key = 'rule key goes here'
+input = 'the <script>alert("quick brown fox");</script> jumps over the lazy dog & mouse'
 
-smartfilter = SmartFilter.new(key)
+smartfilter = SmartFilter.new(api_key)
 
 begin
-  # Verify (returns a boolean)
+  # verify (returns a boolean)
   ap smartfilter.verify!
-  # Info (returns a hash with the goodies)
+  # info (returns a hash with the goodies)
   ap smartfilter.info!
-  # Detect (returns a hash with the goodies)
-  ap smartfilter.detect!(input, whitelist)
-  # Filter (returns a hash with the goodies)
-  ap smartfilter.filter!(input, whitelist)
+  # verify_rule (returns a hash with the goodies)
+  ap smartfilter.verify_rule!(rule_key)
+  # filter (returns a hash with the goodies)
+  ap smartfilter.filter!(input, rule_key)
 rescue SmartFilterNetworkException => e
   puts 'Network connectivity issue'
 rescue SmartFilterBadInputParameter => e
