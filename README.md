@@ -16,9 +16,9 @@ To get started:
 
 2) Make sure you have an API key (you can get one for free from http://prevoty.com)
 
-3) Edit example.rb - you will want to put in your API key and rule key
+3) Edit `example.rb` - you will want to put in your API key and rule key
 
-4) Run example.rb
+4) Run `ruby example.rb`
 
 ## Issues
 
