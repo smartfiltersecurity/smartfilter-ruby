@@ -14,7 +14,7 @@ class SmartFilter
 
   def initialize(key)
     @key = key
-    @base = 'http://api.prevoty.com/1'
+    @base = 'https://api.prevoty.com/1'
   end
 
   # Endpoint: /key/verify
