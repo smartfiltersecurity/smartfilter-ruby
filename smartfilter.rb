@@ -84,8 +84,6 @@ class SmartFilter
   end
 
   def filter!(input, rule_key)
-    puts @key
-    puts rule_key
     options = {:api_key => @key, :input => input, :rule_key => rule_key}
     response = HTTParty.post("#{@base}/xss/filter", :query => options)
     return JSON.parse(response.body) if response.code == 200
